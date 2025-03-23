@@ -93,17 +93,17 @@ public class Main {
       } while (numero == null); 
     //Antes de pedir mayor información sobre la tarea, validamos que exista un registro con el ID indicado.
     Tarea tarea = tareaService.obtenerTareaById(numero).orElse(null);
-    if (!tarea.equals(null)) {
-      //Si la tarea existe, se procede a pedir por consola los valores actuales de la tarea y se realiza su respectiva validación.
-      tarea.setTitulo(obtenerInput("Ingrese el titulo de la tarea"));
-      tarea.setDescripcion(obtenerInput("Ingrese la descripción de la tarea"));
-      tarea.setFechaVencimiento(obtenerFecha("Ingrese la fecha de vencimiento de la tarea"));
-      tarea.setPrioridad(obtenerPrioridad("Ingrese la prioridad de la tarea"));
-      tarea.setEstado(obtenerEstado("Ingrese el estado de la tarea"));
-      tareaService.editarTarea(numero, tarea);
-      return;
+    if (tarea == null) {
+      System.out.println("-------> No existe tarea con el ID " + numero + " registrado");
+      return;      
     }
-    System.out.println("-------> No existe tarea con el ID " + numero + " registrado");
+    //Si la tarea existe, se procede a pedir por consola los valores actuales de la tarea y se realiza su respectiva validación.
+    tarea.setTitulo(obtenerInput("Ingrese el titulo de la tarea"));
+    tarea.setDescripcion(obtenerInput("Ingrese la descripción de la tarea"));
+    tarea.setFechaVencimiento(obtenerFecha("Ingrese la fecha de vencimiento de la tarea"));
+    tarea.setPrioridad(obtenerPrioridad("Ingrese la prioridad de la tarea"));
+    tarea.setEstado(obtenerEstado("Ingrese el estado de la tarea"));
+    tareaService.editarTarea(numero, tarea);
   }
 
   private static void eliminarTarea(){
